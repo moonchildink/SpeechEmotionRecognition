@@ -32,7 +32,6 @@ def getMFCCFeature():
     """
     Returns:
         the MFCC features of the audio files
-
     """
     pre = PreProcessing()
     fileList = pre.getFileNameList()
@@ -41,3 +40,21 @@ def getMFCCFeature():
     X = np.expand_dims(mfccList, axis=-1)
     print(X.shape)
     return mfccList, labelList
+
+def plotMFCC(address):
+    """
+    This function is used to plot the MFCC features of the audio file
+    Args:
+        address:
+
+    Returns:
+
+    """
+    data, sampling_rate = librosa.load(address, duration=3, offset=0.5)
+    mfccs = librosa.feature.mfcc(data, sr=sampling_rate, n_mfcc=40)
+    plt.figure(figsize=(10, 4))
+    librosa.display.specshow(mfccs, x_axis='time')
+    plt.colorbar()
+    plt.title('MFCC')
+    plt.tight_layout()
+    plt.show()
